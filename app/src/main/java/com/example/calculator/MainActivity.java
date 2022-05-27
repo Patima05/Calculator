@@ -1,6 +1,8 @@
 package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,22 +10,30 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    static {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+    }
+
     private TextView textView;
     private Calculator calculator;
-    private Button button0, button1, button2, button3, button4, button5, button6, button7, button8,
-            button9, buttonSum, buttonSubtract, buttonMultiply, buttonDivide, buttonSolve, buttonDot;
+    private Button button0, button1, button2, button3, button4, button5, button6, button7, button8, buttonC, buttonSign,
+            button9, buttonSum, buttonSubtract, buttonMultiply, buttonDivide, buttonSolve, buttonDot, buttonPercent, buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
     }
 
     private void initViews() {
-
         calculator = new Calculator();
         textView = findViewById(R.id.textNumber);
+        buttonC = findViewById(R.id.buttonC);
+        buttonSign = findViewById(R.id.buttonSign);
+        buttonPercent = findViewById(R.id.buttonPercent);
+        buttonBack = findViewById(R.id.buttonBack);
         button0 = findViewById(R.id.button0);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -62,56 +72,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonMultiply.setOnClickListener(this);
         buttonDivide.setOnClickListener(this);
         buttonSolve.setOnClickListener(this);
+        buttonC.setOnClickListener(this);
+        buttonPercent.setOnClickListener(this);
+        buttonSign.setOnClickListener(this);
+        buttonBack.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
 
-        String strValue = "";
-        textView.setText("hello");
+        String strValue;
+        textView.setText("0");
         switch (view.getId()) {
             case R.id.button0: {
-                strValue = calculator.setValueStrInc('0');
+                strValue = calculator.setValueStr('0');
                 break;
             }
             case R.id.button1: {
-                strValue = calculator.setValueStrInc('1');
+                strValue = calculator.setValueStr('1');
                 break;
             }
             case R.id.button2: {
-                strValue = calculator.setValueStrInc('2');
+                strValue = calculator.setValueStr('2');
                 break;
             }
             case R.id.button3: {
-                strValue = calculator.setValueStrInc('3');
+                strValue = calculator.setValueStr('3');
                 break;
             }
             case R.id.button4: {
-                strValue = calculator.setValueStrInc('4');
+                strValue = calculator.setValueStr('4');
                 break;
             }
             case R.id.button5: {
-                strValue = calculator.setValueStrInc('5');
+                strValue = calculator.setValueStr('5');
                 break;
             }
             case R.id.button6: {
-                strValue = calculator.setValueStrInc('6');
+                strValue = calculator.setValueStr('6');
                 break;
             }
             case R.id.button7: {
-                strValue = calculator.setValueStrInc('7');
+                strValue = calculator.setValueStr('7');
                 break;
             }
             case R.id.button8: {
-                strValue = calculator.setValueStrInc('8');
+                strValue = calculator.setValueStr('8');
                 break;
             }
             case R.id.button9: {
-                strValue = calculator.setValueStrInc('9');
+                strValue = calculator.setValueStr('9');
                 break;
             }
             case R.id.buttonDot: {
-                strValue = calculator.setValueStrInc('.');
+                strValue = calculator.setValueStr('.');
                 break;
             }
             case R.id.buttonSum: {
@@ -134,10 +148,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 strValue = String.valueOf(calculator.setOperator('='));
                 break;
             }
+            case R.id.buttonC: {
+                strValue = String.valueOf(calculator.setOperator('c'));
+                break;
+            }
+            case R.id.buttonPercent: {
+                strValue = String.valueOf(calculator.setOperator('%'));
+                break;
+            }
+            case R.id.buttonSign: {
+                strValue = String.valueOf(calculator.setOperator('s'));
+                break;
+            }
+            case R.id.buttonBack: {
+                strValue = String.valueOf(calculator.setOperator('b'));
+                break;
+            }
             default:
                 return;
         }
         textView.setText(strValue);
-
     }
 }

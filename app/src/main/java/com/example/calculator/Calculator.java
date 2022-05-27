@@ -2,19 +2,15 @@ package com.example.calculator;
 
 public class Calculator {
 
-    private Double prevValue;
+    private double prevValue;
     private Character prevOperator;
     private String valueStr;
 
-    public double getValue() {
-        if (prevValue == null) {
-            return 0;
-        }
-        prevValue = Double.valueOf(valueStr);
-        return prevValue;
+    public Calculator() {
+        this.prevValue = 0;
     }
 
-    public String setValueStrInc(Character ch) {
+    public String setValueStr(Character ch) {
         if (valueStr == null) valueStr = "";
         if (Character.isDigit(ch)) {
             valueStr += ch;
@@ -30,41 +26,66 @@ public class Calculator {
 
     public double setOperator(Character operator) {
 
+        if (operator == 'c'){
+            prevOperator = null;
+            prevValue = 0;
+            valueStr = null;
+            return 0;
+        }
+
         if (valueStr == null) valueStr = "0";
-        Double value = Double.valueOf(valueStr);
-        if (prevOperator == null && prevValue == null) {
+
+        double value = Double.valueOf(valueStr);
+
+        if (prevOperator == null && prevValue == 0) {
             prevValue = value;
             prevOperator = operator;
             valueStr = null;
             return prevValue;
         }
 
-        if (value == null && operator == '=') {
+        if (value == 0 && operator == '=') {
             value = prevValue;
             operator = prevOperator;
-
         }
 
+        switch (operator) {
+            case '%': {
+                prevValue = value * 0.01;
+                prevOperator = null;
+                valueStr = String.valueOf(prevValue);
+                return prevValue;
+            }
+            case 's': {
+                prevValue = - value;
+                prevOperator = null;
+                valueStr = String.valueOf(prevValue);
+                return prevValue;
+            }
+        }
         switch (prevOperator) {
             case '+': {
                 prevValue += value;
+                prevOperator = operator;
                 break;
             }
             case '-': {
                 prevValue -= value;
+                prevOperator = operator;
                 break;
             }
             case '*': {
                 prevValue *= value;
+                prevOperator = operator;
                 break;
             }
             case '/': {
                 prevValue /= value;
+                prevOperator = operator;
                 break;
             }
         }
 
-        prevOperator = operator;
         valueStr = null;
         return prevValue;
     }
