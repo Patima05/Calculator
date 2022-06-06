@@ -12,7 +12,11 @@
     <color name="colorPrimaryNight">#166118</color>
     <color name="colorPrimaryDarkNight">#166118</color>
     <color name="colorAccentNight">#166118</color>
-    <color name="textColor">#201A1A</color>
+    <color name="colorTextLight">#201A1A</color>
+    <color name="colorTextDark">#F4FF81</color>
+    <color name="colorBackGroundLight">#80D8FF</color>
+    <color name="colorBackGroundDark">#011F2C</color>
     <color name="textColorTitle">#CCFF90</color>
     <color name="textColorNight">#F8FAF8</color>
+    <color name="bacNight">#F8FAF8</color>
 </resources>

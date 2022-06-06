@@ -1,23 +1,22 @@
 package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
-    }
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Constants{
 
     private TextView textView;
     private Calculator calculator;
-    private Button button0, button1, button2, button3, button4, button5, button6, button7, button8, buttonC, buttonSign,
+    private Button button0, button1, button2, button3, button4, button5, button6, button7, button8, buttonC, buttonSign, buttonSettings,
             button9, buttonSum, buttonSubtract, buttonMultiply, buttonDivide, buttonSolve, buttonDot, buttonPercent, buttonBack;
+    private static final int REQUEST_CODE_SETTINGS_ACTIVITY = 99;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonMultiply = findViewById(R.id.buttonMultiply);
         buttonDivide = findViewById(R.id.buttonDivide);
         buttonSolve = findViewById(R.id.buttonSolve);
+        buttonSettings = findViewById(R.id.buttonSettings);
         initOnClickListeners();
-
     }
 
     private void initOnClickListeners() {
@@ -76,12 +75,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonPercent.setOnClickListener(this);
         buttonSign.setOnClickListener(this);
         buttonBack.setOnClickListener(this);
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
+                startActivityForResult(intentSettings, REQUEST_CODE_SETTINGS_ACTIVITY);
+
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
 
-        String strValue;
+        String strValue = "";
+
         textView.setText("0");
         switch (view.getId()) {
             case R.id.button0: {
@@ -168,5 +177,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
         }
         textView.setText(strValue);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == RESULT_OK){
+            super.onActivityResult(requestCode, resultCode, intent);
+            return;
+        }
+        if (resultCode == RESULT_OK){
+            int themeFromSettings = intent.getExtras().getInt(APP_THEME);
+            setTheme(themeFromSettings);
+
+        }
+
     }
 }

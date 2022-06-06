@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/textColorTitle</item>
-    </style>
-
-    <style name="AppThemeNight" parent="Theme.MaterialComponents.Light">
-        <item name="colorPrimary">#e91e63</item>
-        <item name="colorPrimaryDark">#b0003a</item>
-        <item name="colorAccent">#ff6090</item>
-        <item name="android:textColor">@color/textColorTitle</item>
-    </style>
-
     <style name="buttonStyle">
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textColor">@color/white</item>
@@ -45,6 +29,14 @@
         <item name="android:minHeight">48dp</item>
     </style>
 
+    <style name="AppThemeLight" parent="Theme.MaterialComponents">
+        <item name="backgroundTint">@color/cardview_light_background</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+    </style>
 
+    <style name="AppThemeDark" parent="Theme.MaterialComponents">
+        <item name="backgroundTint">@color/cardview_dark_background</item>
+        <item name="android:textColor">@color/colorTextDark</item>
+    </style>
 
     </resources>
